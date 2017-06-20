@@ -22,6 +22,10 @@ library(dplyr)
 ##     intersect, setdiff, setequal, union
 ```
 
+```r
+library(lattice)
+```
+
 ## Loading and preprocessing the data
 
 ```r
@@ -47,7 +51,6 @@ act_date <- as.Date(act$date)
 ```
 
 
-
 There are many NA's in the Steps column, we'll convert those to zero to avoid issues with plotting.
 
 ```r
@@ -62,7 +65,6 @@ First we group the steps by day.
 ```r
 act_day <- summarize(group_by(act,date), 
                      steps = sum(steps, na.rm = TRUE))
-
 print(act_day)
 ```
 
@@ -84,31 +86,32 @@ print(act_day)
 ```
 
 ```r
-hist(act_day$steps)
+hist(act_day$steps, main = "Histogram of Daily Steps", xlab = "Daily Step Ranges", ylab = "Step Count")
 ```
 
 ![](PA1_template_files/figure-html/daily step histogram-1.png)<!-- -->
 
-*Now we calculate the Mean and Median*
+Now we calculate the Mean and Median
 
 ```r
 daily_steps_mean <- round(mean(act_day$steps))
 print(paste("Average Daily Steps is", daily_steps_mean))
 ```
 
-
+```
 ## [1] "Average Daily Steps is 9354"
-
+```
 
 ```r
 daily_steps_med <- round(median(act_day$steps))
 print(paste("Median Daily Steps is", daily_steps_med))
 ```
 
-
+```
 ## [1] "Median Daily Steps is 10395"
-
-
+```
+##**Average Daily Steps is 9354**
+##**Median Daily Steps is 10395**
 
 ## What is the average daily activity pattern?
 First we make a time series chart of all 5 min5ute intervals and calculate the average steps taken every 5 min5utes.
@@ -116,7 +119,7 @@ First we make a time series chart of all 5 min5ute intervals and calculate the a
 ```r
 min5 <- summarise(group_by(act,interval), steps = mean(steps, na.rm = TRUE))
 
-plot(min5$interval, min5$steps, type = "l", main = "Average Steps for each interval", xlab = "Interval", ylab = "Steps")
+plot(min5$interval, min5$steps, type = "l", main = "Average Steps for each 5 min interval", xlab = "Interval", ylab = "Steps")
 ```
 
 ![](PA1_template_files/figure-html/Interval-1.png)<!-- -->
@@ -129,6 +132,7 @@ print( paste0("The highest steps interval is ", min5$interval[max_pos] ) )
 ```
 ## [1] "The highest steps interval is 835"
 ```
+##**Highest Step interval is 835**
 
 ## Inputing missing values
 First we check for how many incomplete rows there are: 
@@ -175,7 +179,7 @@ print(paste("Average Daily Steps is with filled in values", daily_steps_mean2))
 ```
 
 ```
-### [1] "Average Daily Steps is with filled in values 10766"
+## [1] "Average Daily Steps is with filled in values 10766"
 ```
 
 ```r
@@ -184,41 +188,37 @@ print(paste("Median Daily Steps with filled in values is", daily_steps_med2))
 ```
 
 ```
-### [1] "Median Daily Steps with filled in values is 10762"
+## [1] "Median Daily Steps with filled in values is 10762"
 ```
 
 ```r
-hist(act2_day$steps)
+hist(act2_day$steps, main = "Histogram of Daily Steps", xlab = "Step Range", ylab = "Steps")
 ```
 
 ![](PA1_template_files/figure-html/Checking filled in data-1.png)<!-- -->
 
 After filling the values, it is clear from the historgrams that the daily step values have shifted toward the median.
 
-## Are there differences in activity patterns between weekdays and weekends?
+### Are there differences in activity patterns between weekdays and weekends?
 
 We first label what day of the week each date is and break the data down inbetween weekend and weekday
 
 
 ```r
-wk <- weekdays(as.Date(act2$date), abbreviate = TRUE)
-act3 <- cbind(act2,wk)
-wkend <- subset(act3, act3$wk == "Sun"|act3$wk == "Sat")
-wkday <- subset(act3, act3$wk != "Sun" & act3$wk != "Sat")
+#First we create a column of day names
+act2$day <- weekdays(as.Date(act2$date), abbreviate = TRUE)
+#Then we create a column of weekday or weekend types.(Weekday by Default)
+act2$day_type <- "Weekday"
+#Now we run a GREP search of all cells that contain "SUN"" or "SAT"" and replace that column type with "Weekend"
+act2[ grep("Sun|Sat",act2$day),"day_type"] <- "Weekend"
+act2$day_type <- as.factor(act2$day_type)
 ```
 
 Now we plot the 2 data sets
 
 
 ```r
-wkday_sum <- summarise(group_by(wkday,interval), steps = mean(steps, na.rm = TRUE))
-
-plot(wkday_sum$interval, wkday_sum$steps, type = "l", main = "Weekday vs Weekend Step Pattern", xlab = "Interval", ylab = "Steps", ylim = c(0,300), col = "blue")
-
-wkend_sum <- summarise(group_by(wkend,interval), steps = mean(steps, na.rm = TRUE))
-
-lines(wkend_sum$interval, wkend_sum$steps, col = "green")
-legend("topright", c("Weekday","Weekend"),col = c("blue","green"), bg = "gray", cex = .75, lty = 1, bty = "n")
+xyplot(steps~interval|day_type, type = "l", data = act2, layout = c(1,2))
 ```
 
 ![](PA1_template_files/figure-html/Plot weekday vs weekend-1.png)<!-- -->
