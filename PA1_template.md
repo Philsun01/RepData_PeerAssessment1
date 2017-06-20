@@ -89,7 +89,7 @@ hist(act_day$steps)
 
 ![](PA1_template_files/figure-html/daily step histogram-1.png)<!-- -->
 
-Now we calculate the Mean and Median
+*Now we calculate the Mean and Median*
 
 ```r
 daily_steps_mean <- round(mean(act_day$steps))
