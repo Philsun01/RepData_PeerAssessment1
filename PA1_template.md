@@ -175,7 +175,7 @@ print(paste("Average Daily Steps is with filled in values", daily_steps_mean2))
 ```
 
 ```
-## [1] "Average Daily Steps is with filled in values 10766"
+### [1] "Average Daily Steps is with filled in values 10766"
 ```
 
 ```r
@@ -184,7 +184,7 @@ print(paste("Median Daily Steps with filled in values is", daily_steps_med2))
 ```
 
 ```
-## [1] "Median Daily Steps with filled in values is 10762"
+### [1] "Median Daily Steps with filled in values is 10762"
 ```
 
 ```r
