@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 # Reproducible Research: Peer Assessment 1
 ## Load libraries
 
@@ -31,34 +29,10 @@ library(lattice)
 ## Loading and preprocessing the data
 
 ```r
-=======
-=======
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
-## Load libraries
-```{r Libraries, results="hide"}
-library(dplyr)
-library(lattice)
-
-```
-
-## Loading and preprocessing the data
-```{r Loading Data, echo = TRUE}
-<<<<<<< HEAD
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-=======
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
 act <- read.csv("activity.csv", stringsAsFactors = FALSE)
 summary(act)
 ```
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 ```
 ##      steps            date              interval     
 ##  Min.   :  0.00   Length:17568       Min.   :   0.0  
@@ -74,31 +48,12 @@ Since there is a date value, we will convert that into a date class.
 
 ```r
 act_date <- as.Date(act$date)
-=======
-=======
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-Since there is a date value, we will convert that into a date class.
-```{r Convert Date, echo = TRUE}
-act_date <- as.Date(act$date)
-
-<<<<<<< HEAD
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-=======
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
 ```
 
 
 There are many NA's in the Steps column, we'll convert those to zero to avoid issues with plotting.
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 ```r
-=======
-```{r Remove NA, echo = TRUE}
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-=======
-```{r Remove NA, echo = TRUE}
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
 act$steps <- as.integer(act$steps)
 ```
 
@@ -106,8 +61,6 @@ act$steps <- as.integer(act$steps)
 
 First we group the steps by day.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 ```r
 act_day <- summarize(group_by(act,date), 
@@ -157,36 +110,11 @@ print(paste("Median Daily Steps is", daily_steps_med))
 ```
 ## [1] "Median Daily Steps is 10395"
 ```
-=======
-=======
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-```{r daily step histogram, echo = TRUE}
-act_day <- summarize(group_by(act,date), 
-                     steps = sum(steps, na.rm = TRUE))
-print(act_day)
-hist(act_day$steps, main = "Histogram of Daily Steps", xlab = "Daily Step Ranges", ylab = "Step Count")
-```
-
-Now we calculate the Mean and Median
-```{r average daily steps, echo = TRUE}
-
-daily_steps_mean <- round(mean(act_day$steps))
-print(paste("Average Daily Steps is", daily_steps_mean))
-
-daily_steps_med <- round(median(act_day$steps))
-print(paste("Median Daily Steps is", daily_steps_med))
-```
-<<<<<<< HEAD
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-=======
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
 ##**Average Daily Steps is 9354**
 ##**Median Daily Steps is 10395**
 
 ## What is the average daily activity pattern?
 First we make a time series chart of all 5 min5ute intervals and calculate the average steps taken every 5 min5utes.
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 ```r
 min5 <- summarise(group_by(act,interval), steps = mean(steps, na.rm = TRUE))
@@ -204,35 +132,12 @@ print( paste0("The highest steps interval is ", min5$interval[max_pos] ) )
 ```
 ## [1] "The highest steps interval is 835"
 ```
-=======
-=======
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-```{r Interval, echo=TRUE}
-min5 <- summarise(group_by(act,interval), steps = mean(steps, na.rm = TRUE))
-
-plot(min5$interval, min5$steps, type = "l", main = "Average Steps for each 5 min interval", xlab = "Interval", ylab = "Steps")
-
-max_pos <- match(max(min5$steps),min5$steps)
-print( paste0("The highest steps interval is ", min5$interval[max_pos] ) )
-```
-<<<<<<< HEAD
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-=======
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
 ##**Highest Step interval is 835**
 
 ## Inputing missing values
 First we check for how many incomplete rows there are: 
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 ```r
-=======
-```{r Missing Values, echo = TRUE}
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-=======
-```{r Missing Values, echo = TRUE}
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
 act2 <- act
 for(i in names(act2)){
     print(paste0("Column ", i, 
@@ -241,8 +146,6 @@ for(i in names(act2)){
                  " NA's"))
 }
 ```
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 ```
 ## [1] "Column steps has 2304 NA's"
@@ -253,16 +156,6 @@ There are 2304 incomplete rows all in the steps column.  We will attempt to subs
 
 
 ```r
-=======
-There are 2304 incomplete rows all in the steps column.  We will attempt to substitute and fill in those empty cells with the mean across all intervals.
-
-```{r Subbing Values, echo = TRUE}
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-=======
-There are 2304 incomplete rows all in the steps column.  We will attempt to substitute and fill in those empty cells with the mean across all intervals.
-
-```{r Subbing Values, echo = TRUE}
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
     pos <- 0
     for( i in act2$steps){
         pos <- pos + 1
@@ -276,23 +169,13 @@ There are 2304 incomplete rows all in the steps column.  We will attempt to subs
 ```
 
 Now we look at the new stats for the filled in dataframe:
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 ```r
-=======
-```{r Checking filled in data, echo = TRUE}
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-=======
-```{r Checking filled in data, echo = TRUE}
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
 act2_day <- summarize(group_by(act2,date), 
                      steps = sum(steps, na.rm = TRUE))
 
 daily_steps_mean2 <- round(mean(act2_day$steps))
 print(paste("Average Daily Steps is with filled in values", daily_steps_mean2))
-<<<<<<< HEAD
-<<<<<<< HEAD
 ```
 
 ```
@@ -313,20 +196,6 @@ hist(act2_day$steps, main = "Histogram of Daily Steps", xlab = "Step Range", yla
 ```
 
 ![](PA1_template_files/figure-html/Checking filled in data-1.png)<!-- -->
-=======
-=======
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-
-daily_steps_med2 <- round(median(act2_day$steps))
-print(paste("Median Daily Steps with filled in values is", daily_steps_med2))
-
-hist(act2_day$steps, main = "Histogram of Daily Steps", xlab = "Step Range", ylab = "Steps")
-
-```
-<<<<<<< HEAD
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-=======
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
 
 After filling the values, it is clear from the historgrams that the daily step values have shifted toward the median.
 
@@ -334,16 +203,8 @@ After filling the values, it is clear from the historgrams that the daily step v
 
 We first label what day of the week each date is and break the data down inbetween weekend and weekday
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 ```r
-=======
-```{r Weekday converstion, echo = TRUE}
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-=======
-```{r Weekday converstion, echo = TRUE}
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
 #First we create a column of day names
 act2$day <- weekdays(as.Date(act2$date), abbreviate = TRUE)
 #Then we create a column of weekday or weekend types.(Weekday by Default)
@@ -355,8 +216,6 @@ act2$day_type <- as.factor(act2$day_type)
 
 Now we plot the 2 data sets
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 ```r
 xyplot(steps~interval|day_type, type = "l", data = act2, layout = c(1,2))
@@ -365,16 +224,3 @@ xyplot(steps~interval|day_type, type = "l", data = act2, layout = c(1,2))
 ![](PA1_template_files/figure-html/Plot weekday vs weekend-1.png)<!-- -->
 
 The overlayed graphs show there is more steps taken during weekday mornings, and then some more in the evening while the weekends have a more even spread of walking throughout the day.
-=======
-=======
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-```{r Plot weekday vs weekend, echo = TRUE}
-xyplot(steps~interval|day_type, type = "l", data = act2, layout = c(1,2))
-```
-
-<<<<<<< HEAD
-The overlayed graphs show there is more steps taken during weekday mornings, and then some more in the evening while the weekends have a more even spread of walking throughout the day.
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
-=======
-The overlayed graphs show there is more steps taken during weekday mornings, and then some more in the evening while the weekends have a more even spread of walking throughout the day.
->>>>>>> 7b7799113460b47985b30d28dbba4467dbb7b76a
