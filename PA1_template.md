@@ -89,7 +89,7 @@ print(act_day)
 hist(act_day$steps, main = "Histogram of Daily Steps", xlab = "Daily Step Ranges", ylab = "Step Count")
 ```
 
-![](PA1_template_files/figure-html/daily step histogram-1.png)<!-- -->
+![](PA1_template_files/figure-html/daily_step_histogram-1.png)<!-- -->
 
 Now we calculate the Mean and Median
 
@@ -221,6 +221,6 @@ Now we plot the 2 data sets
 xyplot(steps~interval|day_type, type = "l", data = act2, layout = c(1,2))
 ```
 
-![](PA1_template_files/figure-html/Plot weekday vs weekend-1.png)<!-- -->
+![](PA1_template_files/figure-html/Plot_weekday_vs_weekend-1.png)<!-- -->
 
 The overlayed graphs show there is more steps taken during weekday mornings, and then some more in the evening while the weekends have a more even spread of walking throughout the day.

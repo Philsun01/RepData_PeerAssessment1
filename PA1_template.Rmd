@@ -34,7 +34,7 @@ act$steps <- as.integer(act$steps)
 
 First we group the steps by day.
 
-```{r daily step histogram, echo = TRUE}
+```{r daily_step_histogram, echo = TRUE}
 act_day <- summarize(group_by(act,date), 
                      steps = sum(steps, na.rm = TRUE))
 print(act_day)
@@ -42,7 +42,7 @@ hist(act_day$steps, main = "Histogram of Daily Steps", xlab = "Daily Step Ranges
 ```
 
 Now we calculate the Mean and Median
-```{r average daily steps, echo = TRUE}
+```{r average_daily_steps, echo = TRUE}
 
 daily_steps_mean <- round(mean(act_day$steps))
 print(paste("Average Daily Steps is", daily_steps_mean))
@@ -124,7 +124,7 @@ act2$day_type <- as.factor(act2$day_type)
 
 Now we plot the 2 data sets
 
-```{r Plot weekday vs weekend, echo = TRUE}
+```{r Plot_weekday_vs_weekend, echo = TRUE}
 xyplot(steps~interval|day_type, type = "l", data = act2, layout = c(1,2))
 ```
 
