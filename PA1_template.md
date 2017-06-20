@@ -96,18 +96,18 @@ daily_steps_mean <- round(mean(act_day$steps))
 print(paste("Average Daily Steps is", daily_steps_mean))
 ```
 
-```
+
 ## [1] "Average Daily Steps is 9354"
-```
+
 
 ```r
 daily_steps_med <- round(median(act_day$steps))
 print(paste("Median Daily Steps is", daily_steps_med))
 ```
 
-```
+
 ## [1] "Median Daily Steps is 10395"
-```
+
 
 
 ## What is the average daily activity pattern?
